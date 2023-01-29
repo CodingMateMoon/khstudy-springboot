@@ -1,9 +1,15 @@
 package com.practice.khstudy.controller;
 
+import com.practice.khstudy.request.PostRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -14,15 +20,23 @@ public class PostController {
         return "hello world";
     }
 
-
-    @GetMapping("/paramtest")  //  google.com/?title=study&content=mvc연습
+    @GetMapping("/gets")  //  google.com/?title=study&content=mvc연습
 //    @RequestMapping(method = RequestMethod.GET, path ="/v1/posts")
-    public String get2(@RequestParam String title, @RequestParam String content) {
+    public String get(@RequestParam String title, @RequestParam String content) {
         log.info("title={}, content={}", title, content);
-        System.out.println(title + content);
-        return title + " : " + content;
+        return "Hello";
         //test
     }
+
+    @PostMapping("/posts")  //  google.com/?title=study&content=mvc연습
+//    public String post(@RequestParam Map<String, String> params) {
+    public Map<String,String> post(@RequestBody @Valid PostRequest postRequest) {
+        log.info("postTest={}", postRequest);
+        // {"title": "타이틀 값이 없습니다."}
+
+        return Map.of();
+    }
+
 
 
 }
