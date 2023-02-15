@@ -1,7 +1,9 @@
 package com.practice.khstudy.controller;
 
 import com.practice.khstudy.request.PostRequest;
+import com.practice.khstudy.service.PostService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -13,7 +15,10 @@ import java.util.Map;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class PostController {
+
+    private final PostService postService;
 
     @GetMapping("/get")
     String get() {
@@ -33,7 +38,7 @@ public class PostController {
     public Map<String,String> post(@RequestBody @Valid PostRequest postRequest) {
         log.info("postTest={}", postRequest);
         // {"title": "타이틀 값이 없습니다."}
-
+        postService.write(postRequest);
         return Map.of();
     }
 
